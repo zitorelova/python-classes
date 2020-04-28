@@ -55,6 +55,7 @@ def flipper(input):
     for line in state:
         print(line)
 
+
 def rule_of_three(input):
     with open(input, 'r') as f:
         lines = [line.rstrip().split(' ') for line in f]
@@ -90,17 +91,47 @@ def rule_of_three(input):
         print(f'There is/are {len(solutions)} possible solution/s')
         print(solutions)
 
+
 def telemarketer_or_not(input):
     with open(input, 'r') as f:
         lines = [int(line.rstrip()) for line in f]
     print('ignore' if all(num in [8,9] for num in [lines[0], lines[-1]]) and lines[1] == lines[2] else 'answer')
 
+
 def occupy_parking(input):
-    pass
+    with open(input, "r") as f:
+        lines = [line.rstrip() for line in f]
+    print(sum(list(all([i == 'C' for i in [p1, p2]]) for p1, p2 in zip(lines[1], lines[2]))))
 
 
+def are_we_there_yet(input):
+    with open(input, "r") as f:
+        line = f.readline()
+    line = [int(i) for i in line.split(' ')]
+    distances = ''
+    for i in range(len(line) + 1):
+        temp = line.copy()
+        temp.insert(i, 0)
+        total = 0
+        for j in range(len(temp)):
+            if j > i:
+                while j > i:
+                    total += temp[j]
+                    j -= 1
+            elif i > j:
+                while i > j:
+                    total += temp[j]
+                    j += 1 
+            distances = distances + str(total) + ' '
+            total = 0
+        print(distances)
+        distances = ''
 
 
+def sunflowers(input):
+    with open(input, "r") as f:
+        lines = [line.rstrip() for line in f]
+    grid = [[int(i) for i in line.split(' ')] for line in lines[1:]]
+    print(grid)
 
 
-    
