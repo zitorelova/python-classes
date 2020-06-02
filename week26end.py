@@ -16,6 +16,7 @@ class Square(pygame.sprite.Sprite):
         self.colour = colour
         self.image.fill(colour)
 
+
     def update(self):
         self.rect.x = self.rect.x + self.speed_x
         self.rect.y = self.rect.y + self.speed_y
@@ -35,11 +36,21 @@ for i in range(60):
     sc = random.randint(0, 255)
     x_pos = random.randint(0, 800)
     y_pos = random.randint(0, 600)
-    size = random.randint(10, 20)
-    x_speed = random.randint(-3, 3)
-    y_speed = random.randint(-3, 3)
+    size = random.randint(5, 20)
+
+    x = 0
+    while x == 0:
+        x = random.randint( -1, 1 )
+    y = 0
+    while y == 0:
+        y = random.randint( -1, 1 )
+
+    x_speed = x * size/6.0
+    y_speed = y * size/6.0
+
 
     s = Square(x_pos, y_pos, size, x_speed, y_speed, (sc, sc, sc))
+
     allspriteslist.add(s)
 
 pygame.init() # 0 s
@@ -54,7 +65,7 @@ background_colour = (0,0,0)
 font = pygame.font.SysFont("comicsansms", 72)
 
 start_time = pygame.time.get_ticks()
-time_left = 30000
+time_left = 10000
 clicked_count = 0
 
 showIntro = True
@@ -79,23 +90,28 @@ while not done:
                 background_colour = (0,0,200)
             if event.key == pygame.K_g:
                 background_colour = (0,200,0)
-            if event.key == pygame.K_SPACE and showIntro:
+            if event.key == pygame.K_SPACE and showIntro is True:
                 showIntro = False
                 start_time = pygame.time.get_ticks()
+
 
     screen.fill(background_colour)
 
     remaining_time = (time_left-pygame.time.get_ticks()+start_time+500)//1000
 
-    if showIntro: # intro-screen
-        intro_text = font.render("Welcome", False, (0, 255, 0), (0, 0, 255))
+    # intro screen
+    if showIntro is True:
+        intro_text = font.render("Welcome", False, (0, 255, 0))
         screen.blit(intro_text, (100, 100))
-    elif remaining_time <= 0: # game over screen
+
+    # game over
+    elif remaining_time <= 0:
         remaining_time = 0
         over_text = font.render("Game Over", False, (0, 255, 0), (0, 0, 255))
         screen.blit(over_text, (200,300))
         allspriteslist.empty()
-    else: # game play
+    # game playing
+    else:
         allspriteslist.draw(screen)
 
         time = font.render(str(remaining_time), False, (0, 255, 0), (0, 0, 255))

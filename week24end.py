@@ -44,6 +44,9 @@ background_colour = (0,0,0)
 
 font = pygame.font.SysFont("comicsansmsttf", 72)
 text = font.render('bulabula', False, (0, 255, 0), (0, 0, 255))
+start_time = pygame.time.get_ticks()
+time_left = 3000
+# print(start_time)
 
 done = False
 while not done:
@@ -69,8 +72,12 @@ while not done:
     allspriteslist.draw(screen)
     screen.blit(text, (400, 100))
 
-    time = font.render(str(pygame.time.get_ticks()//1000), False, (0, 255, 0), (0, 0, 255))
+    remaining_time = (time_left-pygame.time.get_ticks()+start_time+500)//1000
+    print(remaining_time)
+    time = font.render(str(remaining_time), False, (0, 255, 0), (0, 0, 255))
+    # time = font.render(str((pygame.time.get_ticks()-start_time)//1000), False, (0, 255, 0), (0, 0, 255))
     screen.blit(time, (100, 100))
+
 
     pygame.display.flip()
     allspriteslist.update()
