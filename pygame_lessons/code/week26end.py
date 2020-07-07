@@ -6,7 +6,7 @@ class Square(pygame.sprite.Sprite):
     def __init__(self, x, y, side, speed_x, speed_y, colour):
         super().__init__()
         self.side = side
-        self.image = pygame.Surface([side, side], pygame.SRCALPHA)
+        self.image = pygame.Surface([side, side])
 
         self.speed_x=speed_x
         self.speed_y=0
@@ -15,9 +15,9 @@ class Square(pygame.sprite.Sprite):
         self.rect.x=x
         self.rect.y=y
         self.colour = colour
-        # self.image.fill(colour)
-        # pygame.draw.circle(self.image, (200,0,0), (side//2, side//2), int(side/2))
+
         pygame.gfxdraw.filled_circle(self.image, side//2, side//2, side//2-1, (200,0,0))
+        self.image.fill(colour)
 
 
     def update(self):
@@ -25,10 +25,8 @@ class Square(pygame.sprite.Sprite):
         self.rect.y = self.rect.y + self.speed_y
 
         if self.rect.x > 800 - self.side:
-            # self.rect.x = -self.side
-            self.rect.x = 800 - self.side
+            self.rect.x = 800 -self.side
             self.speed_x = -self.speed_x
-
         if self.rect.x < -self.side:
             self.rect.x = 800
         if self.rect.y > 600:
@@ -42,7 +40,7 @@ for i in range(60):
     sc = random.randint(0, 255)
     x_pos = random.randint(0, 800)
     y_pos = random.randint(0, 600)
-    size = random.randint(5, 30)
+    size = random.randint(5, 20)
 
     x = 0
     while x == 0:
@@ -71,7 +69,7 @@ background_colour = (0,0,0)
 font = pygame.font.SysFont("comicsansms", 72)
 
 start_time = pygame.time.get_ticks()
-time_left = 1000000
+time_left = 10000
 clicked_count = 0
 
 showIntro = True
@@ -80,6 +78,11 @@ done = False
 while not done:
 
     for event in pygame.event.get():
+
+        if event.type == pygame.QUIT:
+            # print(quit)
+            pygame.quit()
+            exit()
 
         if event.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
