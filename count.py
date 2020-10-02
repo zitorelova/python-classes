@@ -1,15 +1,13 @@
 def count(arr):
     total = 0
     for _ in arr:
-        total = total + 1
+        total += 1
     return total
 
 def count_recursively(arr):
     total = 0
     if arr:
-        total = total + 1 + count_recursively(arr[1:])
-    else:
-        return total
+        total += 1 + count_recursively(arr[1:])
     return total
 
 

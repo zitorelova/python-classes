@@ -1,10 +1,8 @@
 def factorial(n):
-    print("factorial has been called with n = " + str(n))
-    if n == 1:
-        return n
-    else:
-        res = n * factorial(n-1)
-        print("intermediate result for", n, "* factorial(", n-1, "):", res)
-        return res
+    
+    for i in range(1, n):
+        n *= i
+
+    return max(n, 1) # 0! = 1
 
 print(factorial(5))
